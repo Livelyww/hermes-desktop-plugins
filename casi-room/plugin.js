@@ -3,12 +3,18 @@
  * A standing, independently-readable view of the current Diagnostic scores,
  * the Killer Insight reasoning in progress, and the human-challenge log.
  *
- * SECURITY NOTE: this file ships through a git repo used by the app's
+ * IMPORTANT: this file ships through a git repo used by the app's
  * "Install from Git" installer and may end up readable beyond this one
- * machine. It therefore carries PLACEHOLDER data only — never hardcode
- * real client scores, quotes, or evidence into this file. The real numbers
- * live only in the vault / casi-state.json and should be wired in at
- * runtime via host.request, not baked into shipped source.
+ * machine. The repo is currently public, so the data below is included
+ * deliberately and knowingly, not by accident. Before adding anything more
+ * sensitive than quarterly diagnostic scores/evidence already referenced
+ * in client-facing materials, re-check the repo's visibility and privacy
+ * posture first (see the CASi Core build task on proper private-repo auth).
+ *
+ * This is a MANUALLY REFRESHED SNAPSHOT, not a live feed — regenerated
+ * from casi-state.json on 2026-10-27 and pushed by hand. It will not
+ * auto-update; re-run this refresh (or build the proper runtime fetch via
+ * a backend plugin + host.request) when the vault state changes again.
  *
  * $HERMES_HOME/desktop-plugins/casi-room/plugin.js (lively profile)
  */
@@ -19,31 +25,37 @@ import { jsx, jsxs } from 'react/jsx-runtime'
 const ID = 'casi-room'
 const activeTab = atom('diagnostic')
 
-// --- Placeholder only. Real data is not shipped in this file — see the
-// security note above. Wire this up to a live read of the vault/
-// casi-state.json via host.request before relying on it for real work. ---
+// --- Snapshot, manually refreshed from the real vault file. ---
+// Source: 6. Clients/Lively - Mike White/casi-state/casi-state.json
+// (schema_version 0.2, last_updated 2026-10-23, diagnostic date 2026-10-05,
+// re-read and regenerated 2026-10-27 — unchanged since the 23rd).
 const SNAPSHOT = {
   client: 'Lively Worldwide LLC',
-  asOf: 'placeholder — not live data',
+  asOf: '2026-10-23 (Diagnostic dated 2026-10-05; refreshed into this view 2026-10-27)',
   composites: [
-    { name: 'Awareness & Clarity', score: 0, band: '—', note: 'Placeholder — connect to live scoring.' },
-    { name: 'Proof & Trust', score: 0, band: '—', note: 'Placeholder — connect to live scoring.' },
-    { name: 'Marketing Cadence', score: 0, band: '—', note: 'Placeholder — connect to live scoring.' }
+    { name: 'Awareness & Clarity', score: 59, band: 'Amber', note: 'Buyers who find you generally understand you. Flagged thin: more than a third of its scored rules rest on Tier 1 evidence.' },
+    { name: 'Proof & Trust', score: 60, band: 'Amber', note: 'The evidence you have earned is reasonably credible.' },
+    { name: 'Marketing Cadence', score: 51, band: 'Amber', note: 'The weakest of the three. Named bottleneck: R10/R22 (distribution/findability), both Red, both gate-bearing.' }
   ],
   redRules: [
-    { id: '—', name: 'Placeholder rule', score: 0, evidence: 'Connect this view to live data before use.' }
+    { id: 'R10', name: 'Distribution & Demand Allocation', score: 38, evidence: 'Absent from generic buyer-intent search (8 Jul Search Diagnostic); 14 of 15 LinkedIn posts carried no on-platform next step (8 Jul LinkedIn Adaptation Report).' },
+    { id: 'R22', name: 'Engage Media & Physical Availability', score: 38, evidence: 'Same two-source evidence as R10 \u2014 the findability/physical-availability construct specifically. Gate-bearing; binds the Marketing Cadence composite.' },
+    { id: 'R23a', name: 'Connect: Owned Audience', score: 35, evidence: 'The one 100%-owned channel (iamcasi Circle / newsletter) has never published Issue 1, open since May 2026 \u2014 flagged repeatedly as the single highest-leverage unlock still not shipped.' }
   ],
-  constraintClaim: 'Placeholder — not wired to live reasoning yet.',
-  audienceClaim: 'Placeholder — not wired to live reasoning yet.',
-  tension: 'Placeholder — not wired to live reasoning yet.',
+  constraintClaim: 'The business currently finds every real opportunity through two personal relationships (Tim Bradley, Tom Venable) and has never shipped the one channel it would fully own (the iamcasi Circle newsletter, Issue 1, open since May). Distribution/findability (R10, R22, both Red, both gate-bearing) is the structural constraint, independently corroborated \u2014 not the message.',
+  audienceClaim: 'Every real deal closed so far happened because a named person vouched for Lively directly \u2014 Grain Miller 100% via Tim Bradley/Vistage, Revelations via personal/family network \u2014 not because anyone found Lively on their own.',
+  tension: 'The plan to fix distribution was "ship a newsletter." Nothing in the evidence says a generic newsletter reproduces what has actually worked \u2014 named-person trust.',
   gates: [
-    { name: 'Tension test', result: '—', detail: 'Placeholder.' },
-    { name: 'Permission to play', result: '—', detail: 'Placeholder.' },
-    { name: 'Relevance', result: '—', detail: 'Placeholder.' }
+    { name: 'Tension test', result: 'PASS', detail: 'Confronts the "ship it and distribution is fixed" assumption directly.' },
+    { name: 'Permission to play', result: 'PASS', detail: 'R7 = 66/Amber, Tier 3 \u2014 Lori McCreary ("I need you to give me clarity and direction and keep me focussed") + Deeps Ramanathan evidence the offer works once introduced.' },
+    { name: 'Relevance', result: 'PASS', detail: 'Pipeline evidence (Grain Miller, Revelations) and the 21 May Vistage session (9 CEOs, 100% recommendation, directly produced 4 of 8 live pipeline names) both originate the same way.' }
   ],
-  lockStatus: 'Placeholder page \u2014 connect to live casi-state.json before trusting this view.',
+  lockStatus: 'NOT LOCKED \u2014 Lock 2 (Killer Insight). Trigger check: Priority 2 governs (Distribution Blocking Awareness: R22 Red AND Awareness&Clarity Amber); Priority 5 present but secondary (R10 Red AND Proof&Trust Amber).',
   openQuestions: [
-    'This page ships generic placeholder content for repo-safety reasons; wire it to live data before relying on it.'
+    'Is the iamcasi Circle newsletter the same initiative as the Mighty Networks community, or two separate things?',
+    'Does the Lively website itself \u2014 reframed as a trust hub, not a brochure \u2014 satisfy Rule 23a (Connect) better than a third-party community platform?',
+    'From the live file\u2019s own open items: commission structure (15/10/5 step-down) \u2014 internal only or client-facing? (OI-003, open since 21 Sep)',
+    'From the live file\u2019s own open items: does Revelations count toward the Q3/D44 target given its commercial-model exception? (OI-004, open since 18 Aug)'
   ]
 }
 
@@ -196,7 +208,7 @@ function CasiRoomPage() {
       jsx('div', {
         className: 'mb-4 text-xs',
         style: { color: 'var(--ui-text-quaternary)' },
-        children: 'Placeholder build \u2014 shipped without real client data for repo-safety. Wire to live vault data before use.'
+        children: 'Manually refreshed snapshot, not a live feed \u2014 regenerated from casi-state.json on 2026-10-27.'
       }),
       jsxs('div', {
         className: 'mb-4 flex gap-1',
