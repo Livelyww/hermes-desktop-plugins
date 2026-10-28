@@ -12,9 +12,10 @@
  * posture first (see the CASi Core build task on proper private-repo auth).
  *
  * This is a MANUALLY REFRESHED SNAPSHOT, not a live feed — regenerated
- * from casi-state.json on 2026-10-27 and pushed by hand. It will not
- * auto-update; re-run this refresh (or build the proper runtime fetch via
- * a backend plugin + host.request) when the vault state changes again.
+ * from casi-state.json + the reconciled Phase-0 draft on 2026-10-28 and
+ * pushed by hand. It will not auto-update; re-run this refresh (or build
+ * the proper runtime fetch via a backend plugin + host.request) when the
+ * vault state changes again.
  *
  * $HERMES_HOME/desktop-plugins/casi-room/plugin.js (lively profile)
  */
@@ -39,7 +40,7 @@ const SNAPSHOT = {
   ],
   redRules: [
     { id: 'R10', name: 'Distribution & Demand Allocation', score: 38, evidence: 'Absent from generic buyer-intent search (8 Jul Search Diagnostic); 14 of 15 LinkedIn posts carried no on-platform next step (8 Jul LinkedIn Adaptation Report).' },
-    { id: 'R22', name: 'Engage Media & Physical Availability', score: 38, evidence: 'Same two-source evidence as R10 \u2014 the findability/physical-availability construct specifically. Gate-bearing; binds the Marketing Cadence composite.' },
+    { id: 'R22', name: 'Engage Media & Physical Availability', score: 38, evidence: 'Same two-source evidence as R10 \u2014 the findability/physical-availability construct specifically. Gate-bearing; binds the Marketing Cadence composite. NEW (9 Oct re-check): the stale $5M\u2013$30M band is now also confirmed live on the public LinkedIn company page bio, not just the website \u2014 a second independent public surface carrying the same defect.' },
     { id: 'R23a', name: 'Connect: Owned Audience', score: 35, evidence: 'The one 100%-owned channel (iamcasi Circle / newsletter) has never published Issue 1, open since May 2026 \u2014 flagged repeatedly as the single highest-leverage unlock still not shipped.' }
   ],
   constraintClaim: 'The business currently finds every real opportunity through two personal relationships (Tim Bradley, Tom Venable) and has never shipped the one channel it would fully own (the iamcasi Circle newsletter, Issue 1, open since May). Distribution/findability (R10, R22, both Red, both gate-bearing) is the structural constraint, independently corroborated \u2014 not the message.',
@@ -188,11 +189,29 @@ function KillerInsightTab() {
   })
 }
 
+const CHALLENGE_LOG = {
+  fused: 'Lively does not have a message problem or a proof problem \u2014 the evidence for both is strong and independently verified. It has a problem of never finishing the one channel it would actually own: every real deal in the pipeline right now traces back to one of two personal relationships (Tim Bradley or Mike\u2019s own network), and the one asset built specifically to stop depending on those two relationships \u2014 the iamcasi Circle newsletter \u2014 has sat unshipped for five months while the public-facing surfaces that exist (the website, the LinkedIn page) actively tell the wrong buyer a wrong number.',
+  status: 'DRAFT / UNLOCKED \u2014 awaiting Mike\u2019s challenge. Produced in the 28 Oct 2026 autonomous build from the reconciled Phase-0 evidence. Full reasoning trail: Lively_ChallengeLog_KillerInsight_DRAFT_2026-10-28.md in the vault.',
+  asksOfMike: [
+    'Challenge or lock the fused statement \u2014 it combines two already-independently-scored claims (Constraint + Audience), it is not a new score.',
+    'Decide whether the two newly-confirmed facts (LinkedIn bio carries the same stale band; iamcasi.com now 403s where audience101.co used to) get added to the evidence register.',
+    'Nothing on the ICP outreach list, the Rule scores, or this Insight has been changed, finalized, or acted on by this build.'
+  ]
+}
+
 function ChallengeLogTab() {
-  return jsx('div', {
-    className: 'flex h-40 items-center justify-center px-6 text-center text-sm',
-    style: { color: 'var(--ui-text-tertiary)' },
-    children: 'No entries yet. Every time you add something the data alone did not show, it gets logged here: what was in the data, what you added, and what changed as a result.'
+  return jsxs('div', {
+    children: [
+      jsx(Section, { title: 'Fused statement (draft)', children: jsx('p', { className: 'text-sm', children: CHALLENGE_LOG.fused }) }),
+      jsx(Section, { title: 'Status', children: jsx('p', { className: 'text-sm font-medium', style: { color: 'var(--ui-accent)' }, children: CHALLENGE_LOG.status }) }),
+      jsx(Section, {
+        title: 'What Mike needs to do with this',
+        children: jsx('div', {
+          className: 'grid gap-1',
+          children: CHALLENGE_LOG.asksOfMike.map((q, i) => jsx('p', { key: i, className: 'text-sm', style: { color: 'var(--ui-text-secondary)' }, children: `\u2022 ${q}` }))
+        })
+      })
+    ]
   })
 }
 
@@ -208,7 +227,7 @@ function CasiRoomPage() {
       jsx('div', {
         className: 'mb-4 text-xs',
         style: { color: 'var(--ui-text-quaternary)' },
-        children: 'Manually refreshed snapshot, not a live feed \u2014 regenerated from casi-state.json on 2026-10-27.'
+        children: 'Manually refreshed snapshot, not a live feed \u2014 regenerated from casi-state.json + the reconciled Phase-0 draft on 2026-10-28.'
       }),
       jsxs('div', {
         className: 'mb-4 flex gap-1',
